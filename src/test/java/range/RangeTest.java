@@ -72,14 +72,14 @@ public class RangeTest {
 	}
 
 	@Test
-	public void includes_equalsOrMore_range内() {
+	public void includes_equalOrMore_range内() {
 		Range<Integer> r = Range.equalOrMore(1);
 
 		assertTrue(r.includes(2));
 	}
 
 	@Test
-	public void includes_equalsOrMore_range外() {
+	public void includes_equalOrMore_range外() {
 		Range<Integer> r = Range.equalOrMore(1);
 
 		assertFalse(r.includes(0));
@@ -93,10 +93,45 @@ public class RangeTest {
 	}
 
 	@Test
-	public void Double_includes_less_range内() {
-		Range<Double> r = Range.less(3.10);
+	public void includes_equalOrMoreAndEqualOrLess_range内() {
+		Range<Integer> r = Range.equalsOrMoreAndEqualsOrLess(1, 3);
 
-		assertTrue(r.includes(3.00));
+		assertTrue(r.includes(2));
+	}
+
+	@Test
+	public void includes_equalOrMoreAndEqualOrLess_下限外() {
+		Range<Integer> r = Range.equalsOrMoreAndEqualsOrLess(1, 3);
+
+		assertFalse(r.includes(0));
+	}
+
+	@Test
+	public void includes_equalOrMoreAndEqualOrLess_上限外() {
+		Range<Integer> r = Range.equalsOrMoreAndEqualsOrLess(1, 3);
+
+		assertFalse(r.includes(4));
+	}
+
+	@Test
+	public void includes_equalOrMoreAndEqualOrLess_下限境界() {
+		Range<Integer> r = Range.equalsOrMoreAndEqualsOrLess(1, 3);
+
+		assertTrue(r.includes(1));
+	}
+
+	@Test
+	public void includes_equalOrMoreAndEqualOrLess_上限() {
+		Range<Integer> r = Range.equalsOrMoreAndEqualsOrLess(1, 3);
+
+		assertTrue(r.includes(3));
+	}
+
+	@Test
+	public void Double_includes_less_range内() {
+		Range<Double> r = Range.less(3.1);
+
+		assertTrue(r.includes(3.0));
 	}
 
 }

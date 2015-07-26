@@ -24,12 +24,12 @@ interface Limit<C extends Comparable<C>> {
 
 public class Range<C extends Comparable<C>> {
 
-	private final Limit<C> lo;
-	private final Limit<C> hi;
+	private final Limit<C> low;
+	private final Limit<C> high;
 
 	private Range(Limit<C> l, Limit<C> h) {
-		lo = l;
-		hi = h;
+		low = l;
+		high = h;
 	}
 
 	public static <LC extends Comparable<LC>> Range<LC> less(LC c) {
@@ -56,8 +56,12 @@ public class Range<C extends Comparable<C>> {
 		return new Range<>(l, h);
 	}
 
+	public static <EMELC extends Comparable<EMELC>> Range<EMELC> equalsOrMoreAndEqualsOrLess(EMELC lc, EMELC hc) {
+		return new Range<>(new Finite<>(lc, true, ComparisonSpec.MORE), new Finite<>(hc, true, ComparisonSpec.LESS));
+	}
+
 	public boolean includes(C c) {
-		return lo.includes(c) && hi.includes(c);
+		return low.includes(c) && high.includes(c);
 	}
 }
 
